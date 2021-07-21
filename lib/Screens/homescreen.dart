@@ -11,11 +11,6 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-// need to make drawer
-// class PageRoute {
-//   static const String as = AccountSetting.routeName;
-// }
-
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
@@ -92,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      /**********************Need to add Call details******************************************* */
       body: Center(
         child: Column(
           children: [

@@ -1,7 +1,11 @@
 import 'dart:async';
 
+import 'package:dconference/Introductions/IntroScreen.dart';
 import 'package:dconference/Screens/loadingScreen.dart';
+import 'package:dconference/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -15,9 +19,9 @@ class _FirstScreenState extends State<FirstScreen> {
     // TODO: implement initState
 
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 5),
         () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen())));
+            context, MaterialPageRoute(builder: (context) => Forward())));
   }
 
   @override
@@ -52,5 +56,38 @@ class _FirstScreenState extends State<FirstScreen> {
         ],
       ),
     ));
+  }
+}
+
+class Forward extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(FirebaseAuth.instance),
+        ),
+        // ignore: missing_required_param
+        StreamProvider(
+          create: (context) => context.read<AuthService>().authStateChanges,
+        ),
+      ],
+      child: MaterialApp(
+        title: "D-Con",
+        home: AuthWrapper(),
+      ),
+    );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final user = context.watch<User>();
+
+    if (user != null) {
+      return IntroAuthScreen();
+    }
+    return LoginScreen();
   }
 }

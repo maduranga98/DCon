@@ -16,32 +16,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(FirebaseAuth.instance),
-        ),
-        // ignore: missing_required_param
-        StreamProvider(
-          create: (context) => context.read<AuthService>().authStateChanges,
-        ),
-      ],
-      child: MaterialApp(
-        title: "D-Con",
-        home: AuthWrapper(),
-      ),
-    );
-  }
-}
-
-class AuthWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final user = context.watch<User>();
-
-    if (user != null) {
-      return IntroAuthScreen();
-    }
-    return FirstScreen();
+    return MaterialApp(home: FirstScreen());
   }
 }
