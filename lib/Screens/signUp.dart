@@ -307,8 +307,9 @@ class _SignUpState extends State<SignUp> {
                           data: Theme.of(context)
                               .copyWith(primaryColor: Colors.lightBlueAccent),
                           child: TextFormField(
-                            validator: (value) =>
-                                value.isEmpty ? 'Enter an email' : null,
+                            validator: (value) => value.length < 8
+                                ? ' Enter a password 8+ chars long'
+                                : null,
                             decoration: InputDecoration(
                               hintText: "********",
                               contentPadding: EdgeInsets.all(5.0),
