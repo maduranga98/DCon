@@ -1,4 +1,5 @@
 // @dart=2.9
+
 import 'package:dconference/Chats/chattedTiles.dart';
 import 'package:dconference/LMS/MainPage.dart';
 import 'package:dconference/Screens/accountSetting.dart';
@@ -7,12 +8,15 @@ import 'package:dconference/Screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+import 'package:dconference/Calls/calls.dart';
+import 'package:flutter/material.dart';
+
+class RealHome extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _RealHomeState createState() => _RealHomeState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _RealHomeState extends State<RealHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
             CustomListTile(
                 Icons.file_copy,
-                'D-LMS',
+                'Study Rooms',
                 () => {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => MainPage()))
@@ -88,20 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      /**********************Need to add Call details******************************************* */
-      body: Center(
-        child: Column(
-          children: [
-            Text("home"),
-            // ignore: deprecated_member_use
-          ],
-        ),
-      ),
+      body: Calls(),
     );
   }
 }
 
-// ignore: must_be_immutable
 class CustomListTile extends StatelessWidget {
   IconData icon;
   String text;

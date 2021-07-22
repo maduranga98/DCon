@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dconference/LMS/MainScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,10 +19,10 @@ class _CreatedRoomsState extends State<CreatedRooms> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
-        
         title: Text(
           "Created Rooms",
-          style: TextStyle(fontSize: 15, fontFamily: 'Fascinate',letterSpacing: 3.0),
+          style: TextStyle(
+              fontSize: 15, fontFamily: 'Fascinate', letterSpacing: 3.0),
         ),
         centerTitle: true,
       ),

@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:dconference/Screens/signUp.dart';
 import 'package:dconference/services/auth.dart';
 import 'package:dconference/services/loading.dart';

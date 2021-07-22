@@ -70,6 +70,7 @@ class Forward extends StatelessWidget {
         // ignore: missing_required_param
         StreamProvider(
           create: (context) => context.read<AuthService>().authStateChanges,
+          initialData: null,
         ),
       ],
       child: MaterialApp(
