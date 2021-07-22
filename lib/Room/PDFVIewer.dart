@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
 import 'package:path/path.dart';
 
@@ -27,30 +27,29 @@ class _PDFViewerpageState extends State<PDFViewerpage> {
     // final name = basename(widget.file.path);
     final text = '${indexPage + 1} of $pages';
     return Scaffold(
-      appBar: AppBar(
-          //    title: Text(name),
-          // actions: pages >= 2
-          //     ? [
-          //         Center(child: Text(text)),
-          //         IconButton(
-          //           icon: Icon(Icons.chevron_left, size: 32),
-          //           onPressed: () {
-          //             final page = indexPage == 0 ? pages : indexPage - 1;
-          //           },
-          //         ),
-          //         IconButton(
-          //           icon: Icon(Icons.chevron_right, size: 32),
-          //           onPressed: () {
-          //             final page = indexPage == pages - 1 ? 0 : indexPage + 1;
-          //             //  controller.setPage(page);
-          //           },
-          //         ),
-          //       ]
-          //     : null,
-          ),
-      // body: Center(
-      //   child: PDF(nightMode: true).cachedFromUrl(file),
-      // )
-    );
+        appBar: AppBar(
+            //    title: Text(name),
+            // actions: pages >= 2
+            //     ? [
+            //         Center(child: Text(text)),
+            //         IconButton(
+            //           icon: Icon(Icons.chevron_left, size: 32),
+            //           onPressed: () {
+            //             final page = indexPage == 0 ? pages : indexPage - 1;
+            //           },
+            //         ),
+            //         IconButton(
+            //           icon: Icon(Icons.chevron_right, size: 32),
+            //           onPressed: () {
+            //             final page = indexPage == pages - 1 ? 0 : indexPage + 1;
+            //             //  controller.setPage(page);
+            //           },
+            //         ),
+            //       ]
+            //     : null,
+            ),
+        body: Center(
+          child: PDF(nightMode: true).cachedFromUrl(file),
+        ));
   }
 }
