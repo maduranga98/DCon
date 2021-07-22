@@ -1,3 +1,4 @@
+import 'package:dconference/Calls/draw.dart';
 import 'package:flutter/material.dart';
 import '../utils/AppID.dart';
 import 'package:agora_rtc_engine/rtc_engine.dart';
@@ -15,8 +16,6 @@ class CallPage extends StatefulWidget {
 }
 
 class _CallPageState extends State<CallPage> {
-  SpannableTextEditingController _controller = SpannableTextEditingController();
-
   static final _users = <int>[];
   final _infoStrings = <String>[];
   bool muted = false;
@@ -106,7 +105,7 @@ class _CallPageState extends State<CallPage> {
   }
 
   /// Toolbar layout
-  Widget _toolbar() {
+  Widget _tooFlbar() {
     return Container(
       alignment: Alignment.bottomCenter,
       padding: const EdgeInsets.symmetric(vertical: 48),
@@ -160,52 +159,33 @@ class _CallPageState extends State<CallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            child: _viewRows(),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Scrollbar(
-                child: TextField(
-                  controller: _controller,
-                  keyboardType: TextInputType.text,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    filled: false,
-                  ),
-                ),
-              ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: _viewRows(),
             ),
-          ),
-          StyleToolbar(
-            controller: _controller,
-          ),
-          // Container(
-          //   child: _toolbar(),
-          // ),
-        ],
-      ),
-    );
 
-    // return Scaffold(
-    //   // appBar: AppBar(
-    //   //   toolbarHeight: 10,
-    //   //   title: Text(' Dconn Meeting Calling'),
-    //   // ),
-    // backgroundColor: Colors.black,
-    // body: Column(
-    //   children: <Widget>[
-    //     _viewRows(),
-    //     _toolbar(),
-    //   ],
-    // ),
-    // );
+            // Container(
+            //   child: _toolbar(),
+            // ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [_tooFlbar()],
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          child: Icon(Icons.edit),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Draw()));
+          },
+        ));
+
+    //
   }
 
   /// Helper function to get list of native views
@@ -226,7 +206,9 @@ class _CallPageState extends State<CallPage> {
   Widget _expandedVideoRow(List<Widget> views) {
     final wrappedViews = views.map<Widget>(_videoView).toList();
     return Expanded(
-      child: Row(
+      child: GridView.count(
+        scrollDirection: Axis.horizontal,
+        crossAxisCount: 1,
         children: wrappedViews,
       ),
     );
@@ -288,7 +270,6 @@ class _CallPageState extends State<CallPage> {
     _engine.switchCamera();
   }
 }
-
 
 // class CallPage extends StatefulWidget {
 //   final String channelName;

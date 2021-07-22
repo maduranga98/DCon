@@ -1,4 +1,5 @@
 // @dart=2.9
+import 'package:dconference/Calls/CallPage.dart';
 import 'package:dconference/Chats/chattedTiles.dart';
 import 'package:dconference/LMS/MainPage.dart';
 import 'package:dconference/Screens/accountSetting.dart';
@@ -6,6 +7,7 @@ import 'package:dconference/Screens/loadingScreen.dart';
 import 'package:dconference/Screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,9 +15,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final myController = TextEditingController();
+  bool _validateError = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.blue[900],
@@ -88,16 +94,101 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      /**********************Need to add Call details******************************************* */
       body: Center(
-        child: Column(
-          children: [
-            Text("home"),
-            // ignore: deprecated_member_use
-          ],
+        child: SingleChildScrollView(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Study Group Call',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextFormField(
+                  controller: myController,
+                  decoration: InputDecoration(
+                    labelText: 'Channel Name',
+                    labelStyle: TextStyle(color: Colors.blue),
+                    hintText: 'test',
+                    hintStyle: TextStyle(color: Colors.black45),
+                    errorText:
+                        _validateError ? 'Channel name is mandatory' : null,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(padding: EdgeInsets.symmetric(vertical: 30)),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: MaterialButton(
+                  onPressed: onJoin,
+                  height: 40,
+                  color: Colors.blueAccent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Join',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> onJoin() async {
+    setState(() {
+      myController.text.isEmpty
+          ? _validateError = true
+          : _validateError = false;
+    });
+
+    await _handleCameraAndMic(Permission.camera);
+    await _handleCameraAndMic(Permission.microphone);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CallPage(channelName: myController.text),
+        ));
+  }
+
+  Future<void> _handleCameraAndMic(Permission permission) async {
+    final status = await permission.request();
+    print(status);
   }
 }
 
