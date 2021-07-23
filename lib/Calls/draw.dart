@@ -1,3 +1,4 @@
+import 'CallPage.dart';
 import 'package:flutter/material.dart';
 import 'package:rich_text_editor/rich_text_editor.dart';
 
@@ -13,7 +14,7 @@ class _DrawState extends State<Draw> {
     return Scaffold(
       body: Container(
         child: Column(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
