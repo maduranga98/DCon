@@ -10,7 +10,8 @@ class Calls extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          accentColor: Colors.blueAccent,
+          accentColor: Colors.blue[900],
+          fontFamily: 'Fascinate',
         ),
         home: MyHomePage());
   }

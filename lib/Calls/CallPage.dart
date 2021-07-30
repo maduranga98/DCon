@@ -161,7 +161,11 @@ class _CallPageState extends State<CallPage> {
         children: <Widget>[
           //mute button
           RawMaterialButton(
-            onPressed: _onToggleMute,
+            onPressed: () {
+              setState(() {
+                _onToggleMute();
+              });
+            },
             child: Icon(
               muted ? Icons.mic_off : Icons.mic,
               color: muted ? Colors.white : Colors.blueAccent,
@@ -208,38 +212,6 @@ class _CallPageState extends State<CallPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: inputWidg,
-      //  Column(
-      //   mainAxisAlignment: MainAxisAlignment.start,
-      //   children: <Widget>[
-      //     Container(
-      //       child: _viewRows(),
-      //     ),
-      //     Expanded(
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: Scrollbar(
-      //           child: TextField(
-      //             controller: _controller,
-      //             keyboardType: TextInputType.text,
-      //             maxLines: null,
-      //             decoration: InputDecoration(
-      //               border: InputBorder.none,
-      //               focusedBorder: InputBorder.none,
-      //               filled: false,
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //     StyleToolbar(
-      //       controller: _controller,
-      //     ),
-      //     // Container(
-      //     //   child: _toolbar(),
-      //     // ),
-      //   ],
-      // ),
-
       floatingActionButton: Wrap(
         direction: Axis.horizontal,
         children: [
@@ -267,69 +239,8 @@ class _CallPageState extends State<CallPage> {
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       inputWidg = noteWidget();
-      //     });
-      //   },
-      //   child: const Icon(Icons.navigation),
-      //   backgroundColor: Colors.green,
-      // )
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     setState(() {
-      //       inputWidg = noteWidget();
-      //     });
-      //   },
-      //   child: const Icon(Icons.edit),
-      //   backgroundColor: Colors.green,
-      // ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //       body: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: <Widget>[
-  //           Container(
-  //             child: _viewRows(),
-  //           ),
-  //           Expanded(
-  //             child: Padding(
-  //               padding: const EdgeInsets.all(8.0),
-  //               child: Scrollbar(
-  //                 child: TextField(
-  //                   controller: _controller,
-  //                   keyboardType: TextInputType.text,
-  //                   maxLines: null,
-  //                   decoration: InputDecoration(
-  //                     border: InputBorder.none,
-  //                     focusedBorder: InputBorder.none,
-  //                     filled: false,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //           StyleToolbar(
-  //             controller: _controller,
-  //           ),
-  //           // Container(
-  //           //   child: _toolbar(),
-  //           // ),
-  //         ],
-  //       ),
-  //       floatingActionButton: FloatingActionButton(
-  //         onPressed: () {
-  //           // Add your onPressed code here!
-  //         },
-  //         child: const Icon(Icons.navigation),
-  //         backgroundColor: Colors.green,
-  //       ));
-  // }
 
   /// Helper function to get list of native views
   List<Widget> _getRenderViews() {
@@ -344,29 +255,12 @@ class _CallPageState extends State<CallPage> {
     // return Container(width: 150, height: 100, child: view);
   }
 
-  // Video view wrapper
-  // Widget _videoView(view) {
-  //   if (y == 0) {
-  //     return Expanded(child: Container(child: view));
-  //   } else {
-  //     return Container(width: 150, height: 100, child: view);
-  //   }
-  // }
-
-  // //  Video view row wrapper
-  // Widget _expandedVideoRow(List<Widget> views) {
-  //   final wrappedViews = views.map<Widget>(_videoView).toList();
-  //   return Expanded(
-  //     child: Row(
-  //       children: wrappedViews,
-  //     ),
-  //   );
-  // }
-
   Widget _expandedVideoRow(List<Widget> views) {
     final wrappedViews = views.map<Widget>(_videoView).toList();
     return Expanded(
-      child: Row(
+      child: GridView.count(
+        scrollDirection: Axis.horizontal,
+        crossAxisCount: 1,
         children: wrappedViews,
       ),
     );
@@ -440,31 +334,17 @@ class _CallPageState extends State<CallPage> {
   }
 }
 
-
-
-
-
 /// Video view row wrapper:GRID
-  // Widget _expandedVideoRow(List<Widget> views) {
-  //   final wrappedViews = views.map<Widget>(_videoView).toList();
-  //   return Expanded(
-  //     child: GridView.count(
-  //       scrollDirection: Axis.horizontal,
-  //       crossAxisCount: 1,
-  //       children: wrappedViews,
-  //     ),
-  //   );
-  // }
-
-
-
-
-
-
-
-
-
-
+// Widget _expandedVideoRow(List<Widget> views) {
+//   final wrappedViews = views.map<Widget>(_videoView).toList();
+//   return Expanded(
+//     child: GridView.count(
+//       scrollDirection: Axis.horizontal,
+//       crossAxisCount: 1,
+//       children: wrappedViews,
+//     ),
+//   );
+// }
 
 // import 'package:flutter/material.dart';
 // import '../utils/AppID.dart';
@@ -802,8 +682,6 @@ class _CallPageState extends State<CallPage> {
 //   }
 // }
 
-
-
 // class Draw extends StatefulWidget {
 //   @override
 //   _DrawState createState() => _DrawState();
@@ -846,7 +724,6 @@ class _CallPageState extends State<CallPage> {
 //     );
 //   }
 // }
-
 
 // class CallPage extends StatefulWidget {
 //   final String channelName;

@@ -208,11 +208,11 @@ class _DocumentsPageState extends State<DocumentsPage> {
                                           letterSpacing: 3.0),
                                     ),
                                     onPressed: () {
-                                      return getFile();
                                       setState(() {
                                         fileUrl = comment.text;
                                         print(fileUrl);
                                       });
+                                      return getFile();
                                     },
                                   ),
                                 ),

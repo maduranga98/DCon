@@ -21,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Dconn Group Video Calling'),
         elevation: 0,
       ),
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -30,10 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: Image.asset('assets/agora-logo.png'),
-                  height: MediaQuery.of(context).size.height * 0.1,
-                ),
                 Padding(padding: EdgeInsets.only(top: 20)),
                 Text(
                   'Study Group Call',
